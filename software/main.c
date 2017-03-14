@@ -1,15 +1,29 @@
 /*
- * IR-MARELAB-WATERLEVEL.c
- *
- * Created: 06.02.2017 11:15:52
- * Author : Marc
- //*********************************************************************************************************
- //   Program written for Arduino Nano to drive Vishay "AGC P" type proximity sensor consisting of TSSP4P38
- //   receiver (connected to pin D8) and VSLB3940 IR emitter (connected with a series resistor to pin D3). Best
- //   results are obtained with a burst length between 100ms and 150ms and a burst period of 500ms or more. The
- //   TSSP4P38 requires a long idle period for its AGC to recover full sensitivity after repressing the burst.
- //   The serial monitor must be used at 9600 baud and send Newline characters to enter the sensor parameters.
- //*********************************************************************************************************
+ File		: IR-MARELAB-WATERLEVEL.c
+ Created	: 06.02.2017 11:15:52
+ Author		: Marc Philipp Hammermann
+ mail		: marc@marelab.org
+ 
+ Copyright (C) 2017  by Marc Philpp Hammermann
+ 
+ Program written for ATTINY45 to drive Vishay "AGC P" type proximity sensor. 
+ Best results are obtained with a burst length between 100ms and 150ms and a burst period of 500ms or more. The
+ TSSP4P38 requires a long idle period for its AGC to recover full sensitivity after repressing the burst.
+ 
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License along
+ with this program; if not, write to the Free Software Foundation, Inc.,
+ 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
   */ 
 #include <avr/io.h>
 #include <avr/interrupt.h>
