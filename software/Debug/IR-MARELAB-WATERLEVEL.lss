@@ -1,0 +1,330 @@
+
+IR-MARELAB-WATERLEVEL.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000001b0  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000224  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          0000000b  00800060  00800060  00000224  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000224  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000254  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000038  00000000  00000000  00000290  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000605  00000000  00000000  000002c8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000004c3  00000000  00000000  000008cd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000029c  00000000  00000000  00000d90  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  0000009c  00000000  00000000  0000102c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    00000331  00000000  00000000  000010c8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    000000e0  00000000  00000000  000013f9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000028  00000000  00000000  000014d9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0e c0       	rjmp	.+28     	; 0x1e <__ctors_end>
+   2:	28 c0       	rjmp	.+80     	; 0x54 <__bad_interrupt>
+   4:	75 c0       	rjmp	.+234    	; 0xf0 <__vector_2>
+   6:	26 c0       	rjmp	.+76     	; 0x54 <__bad_interrupt>
+   8:	26 c0       	rjmp	.+76     	; 0x56 <__vector_4>
+   a:	24 c0       	rjmp	.+72     	; 0x54 <__bad_interrupt>
+   c:	23 c0       	rjmp	.+70     	; 0x54 <__bad_interrupt>
+   e:	22 c0       	rjmp	.+68     	; 0x54 <__bad_interrupt>
+  10:	21 c0       	rjmp	.+66     	; 0x54 <__bad_interrupt>
+  12:	20 c0       	rjmp	.+64     	; 0x54 <__bad_interrupt>
+  14:	1f c0       	rjmp	.+62     	; 0x54 <__bad_interrupt>
+  16:	1e c0       	rjmp	.+60     	; 0x54 <__bad_interrupt>
+  18:	1d c0       	rjmp	.+58     	; 0x54 <__bad_interrupt>
+  1a:	1c c0       	rjmp	.+56     	; 0x54 <__bad_interrupt>
+  1c:	1b c0       	rjmp	.+54     	; 0x54 <__bad_interrupt>
+
+0000001e <__ctors_end>:
+  1e:	11 24       	eor	r1, r1
+  20:	1f be       	out	0x3f, r1	; 63
+  22:	cf e5       	ldi	r28, 0x5F	; 95
+  24:	d1 e0       	ldi	r29, 0x01	; 1
+  26:	de bf       	out	0x3e, r29	; 62
+  28:	cd bf       	out	0x3d, r28	; 61
+
+0000002a <__do_copy_data>:
+  2a:	10 e0       	ldi	r17, 0x00	; 0
+  2c:	a0 e6       	ldi	r26, 0x60	; 96
+  2e:	b0 e0       	ldi	r27, 0x00	; 0
+  30:	e0 eb       	ldi	r30, 0xB0	; 176
+  32:	f1 e0       	ldi	r31, 0x01	; 1
+  34:	02 c0       	rjmp	.+4      	; 0x3a <__do_copy_data+0x10>
+  36:	05 90       	lpm	r0, Z+
+  38:	0d 92       	st	X+, r0
+  3a:	a0 36       	cpi	r26, 0x60	; 96
+  3c:	b1 07       	cpc	r27, r17
+  3e:	d9 f7       	brne	.-10     	; 0x36 <__do_copy_data+0xc>
+
+00000040 <__do_clear_bss>:
+  40:	20 e0       	ldi	r18, 0x00	; 0
+  42:	a0 e6       	ldi	r26, 0x60	; 96
+  44:	b0 e0       	ldi	r27, 0x00	; 0
+  46:	01 c0       	rjmp	.+2      	; 0x4a <.do_clear_bss_start>
+
+00000048 <.do_clear_bss_loop>:
+  48:	1d 92       	st	X+, r1
+
+0000004a <.do_clear_bss_start>:
+  4a:	ab 36       	cpi	r26, 0x6B	; 107
+  4c:	b2 07       	cpc	r27, r18
+  4e:	e1 f7       	brne	.-8      	; 0x48 <.do_clear_bss_loop>
+  50:	a5 d0       	rcall	.+330    	; 0x19c <main>
+  52:	ac c0       	rjmp	.+344    	; 0x1ac <_exit>
+
+00000054 <__bad_interrupt>:
+  54:	d5 cf       	rjmp	.-86     	; 0x0 <__vectors>
+
+00000056 <__vector_4>:
+//*********************************************************************************************************
+//  Interrupt service routine
+//  Timer2 overflow - used to count carrier cycles
+//*********************************************************************************************************
+
+ISR(TIMER1_OVF_vect){
+  56:	1f 92       	push	r1
+  58:	0f 92       	push	r0
+  5a:	0f b6       	in	r0, 0x3f	; 63
+  5c:	0f 92       	push	r0
+  5e:	11 24       	eor	r1, r1
+  60:	2f 93       	push	r18
+  62:	8f 93       	push	r24
+  64:	9f 93       	push	r25
+  66:	af 93       	push	r26
+  68:	bf 93       	push	r27
+  carrier_count++;                         // increment carrier counter
+  6a:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__data_end>
+  6e:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__data_end+0x1>
+  72:	a0 91 62 00 	lds	r26, 0x0062	; 0x800062 <__data_end+0x2>
+  76:	b0 91 63 00 	lds	r27, 0x0063	; 0x800063 <__data_end+0x3>
+  7a:	01 96       	adiw	r24, 0x01	; 1
+  7c:	a1 1d       	adc	r26, r1
+  7e:	b1 1d       	adc	r27, r1
+  80:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__data_end>
+  84:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__data_end+0x1>
+  88:	a0 93 62 00 	sts	0x0062, r26	; 0x800062 <__data_end+0x2>
+  8c:	b0 93 63 00 	sts	0x0063, r27	; 0x800063 <__data_end+0x3>
+  if (carrier_count == 4000){       //5700 if burst is completed
+  90:	80 3a       	cpi	r24, 0xA0	; 160
+  92:	9f 40       	sbci	r25, 0x0F	; 15
+  94:	a1 05       	cpc	r26, r1
+  96:	b1 05       	cpc	r27, r1
+  98:	31 f4       	brne	.+12     	; 0xa6 <__vector_4+0x50>
+    //TCCR1 = (0<<COM1A1)|(0<<COM1A0);        // disconnect OC2B pin driving IR emitter
+	TCCR1 &= ~(1<<COM1A1);
+  9a:	80 b7       	in	r24, 0x30	; 48
+  9c:	8f 7d       	andi	r24, 0xDF	; 223
+  9e:	80 bf       	out	0x30, r24	; 48
+	TCCR1 &= ~(1<<COM1A0);
+  a0:	80 b7       	in	r24, 0x30	; 48
+  a2:	8f 7e       	andi	r24, 0xEF	; 239
+  a4:	80 bf       	out	0x30, r24	; 48
+   //DDRB  = (0<<DDB1);
+  }                                        // end if
+  if (carrier_count == 8000){    //16000 if burst cycle is completed
+  a6:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__data_end>
+  aa:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__data_end+0x1>
+  ae:	a0 91 62 00 	lds	r26, 0x0062	; 0x800062 <__data_end+0x2>
+  b2:	b0 91 63 00 	lds	r27, 0x0063	; 0x800063 <__data_end+0x3>
+  b6:	80 34       	cpi	r24, 0x40	; 64
+  b8:	9f 41       	sbci	r25, 0x1F	; 31
+  ba:	a1 05       	cpc	r26, r1
+  bc:	b1 05       	cpc	r27, r1
+  be:	71 f4       	brne	.+28     	; 0xdc <__vector_4+0x86>
+    TCCR1 |= (1<<COM1A1);
+  c0:	80 b7       	in	r24, 0x30	; 48
+  c2:	80 62       	ori	r24, 0x20	; 32
+  c4:	80 bf       	out	0x30, r24	; 48
+	TCCR1 |= (1<<COM1A0);      // re-connect OC2B pin driving IR emitter
+  c6:	80 b7       	in	r24, 0x30	; 48
+  c8:	80 61       	ori	r24, 0x10	; 16
+  ca:	80 bf       	out	0x30, r24	; 48
+	//DDRB  = (1<<DDB1);
+    carrier_count= 0;                      // reset counter for start of new cycle
+  cc:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <__data_end>
+  d0:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <__data_end+0x1>
+  d4:	10 92 62 00 	sts	0x0062, r1	; 0x800062 <__data_end+0x2>
+  d8:	10 92 63 00 	sts	0x0063, r1	; 0x800063 <__data_end+0x3>
+  }                                        // end if
+  
+}                                          // end ISR
+  dc:	bf 91       	pop	r27
+  de:	af 91       	pop	r26
+  e0:	9f 91       	pop	r25
+  e2:	8f 91       	pop	r24
+  e4:	2f 91       	pop	r18
+  e6:	0f 90       	pop	r0
+  e8:	0f be       	out	0x3f, r0	; 63
+  ea:	0f 90       	pop	r0
+  ec:	1f 90       	pop	r1
+  ee:	18 95       	reti
+
+000000f0 <__vector_2>:
+//*********************************************************************************************************
+//  Interrupt service routine
+//  PIN INTERRUPT TO MEASURE TIME
+//*********************************************************************************************************
+
+ISR(PCINT0_vect){
+  f0:	1f 92       	push	r1
+  f2:	0f 92       	push	r0
+  f4:	0f b6       	in	r0, 0x3f	; 63
+  f6:	0f 92       	push	r0
+  f8:	11 24       	eor	r1, r1
+  fa:	2f 93       	push	r18
+  fc:	8f 93       	push	r24
+  fe:	9f 93       	push	r25
+ 100:	af 93       	push	r26
+ 102:	bf 93       	push	r27
+if (carrier_count > 80){
+ 104:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__data_end>
+ 108:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__data_end+0x1>
+ 10c:	a0 91 62 00 	lds	r26, 0x0062	; 0x800062 <__data_end+0x2>
+ 110:	b0 91 63 00 	lds	r27, 0x0063	; 0x800063 <__data_end+0x3>
+ 114:	81 35       	cpi	r24, 0x51	; 81
+ 116:	91 05       	cpc	r25, r1
+ 118:	a1 05       	cpc	r26, r1
+ 11a:	b1 05       	cpc	r27, r1
+ 11c:	40 f0       	brcs	.+16     	; 0x12e <__vector_2+0x3e>
+	if (carrier_count < 400){ //1800
+ 11e:	80 39       	cpi	r24, 0x90	; 144
+ 120:	91 40       	sbci	r25, 0x01	; 1
+ 122:	a1 05       	cpc	r26, r1
+ 124:	b1 05       	cpc	r27, r1
+ 126:	10 f4       	brcc	.+4      	; 0x12c <__vector_2+0x3c>
+		PORTB &= ~(1 << PB2);   /* LED OFF */	
+ 128:	c2 98       	cbi	0x18, 2	; 24
+ 12a:	01 c0       	rjmp	.+2      	; 0x12e <__vector_2+0x3e>
+		// lastState = TRUE;
+	}
+	else
+	{
+		 PORTB |= (1 << PB2);    /* LED ON setzt Bit 2 an PortB auf 1 */
+ 12c:	c2 9a       	sbi	0x18, 2	; 24
+	}
+}
+}                                          // end ISR
+ 12e:	bf 91       	pop	r27
+ 130:	af 91       	pop	r26
+ 132:	9f 91       	pop	r25
+ 134:	8f 91       	pop	r24
+ 136:	2f 91       	pop	r18
+ 138:	0f 90       	pop	r0
+ 13a:	0f be       	out	0x3f, r0	; 63
+ 13c:	0f 90       	pop	r0
+ 13e:	1f 90       	pop	r1
+ 140:	18 95       	reti
+
+00000142 <setup>:
+
+void setup() {  
+  // Timer 1 Fast  PWM
+  TCCR1	=  (1<<PWM1A)  | (0<<CS13)| (0<<CS12)| (1<<CS11) | (0<<CS10);
+ 142:	82 e4       	ldi	r24, 0x42	; 66
+ 144:	80 bf       	out	0x30, r24	; 48
+  GTCCR = (0<<PWM1B);
+ 146:	1c bc       	out	0x2c, r1	; 44
+  TCCR1 |= (1<<COM1A1)|(1<<COM1A0);
+ 148:	80 b7       	in	r24, 0x30	; 48
+ 14a:	80 63       	ori	r24, 0x30	; 48
+ 14c:	80 bf       	out	0x30, r24	; 48
+  OCR1A		= 80; // Duty
+ 14e:	80 e5       	ldi	r24, 0x50	; 80
+ 150:	8e bd       	out	0x2e, r24	; 46
+  OCR1C		= 255;
+ 152:	8f ef       	ldi	r24, 0xFF	; 255
+ 154:	8d bd       	out	0x2d, r24	; 45
+  TCNT1 =  0;
+ 156:	1f bc       	out	0x2f, r1	; 47
+  TIMSK = (0 << OCIE1B) | (0 << OCIE1A) | (1 << TOIE1);
+ 158:	84 e0       	ldi	r24, 0x04	; 4
+ 15a:	89 bf       	out	0x39, r24	; 57
+  DDRB	   |= (1<<DDB1) ;
+ 15c:	b9 9a       	sbi	0x17, 1	; 23
+  // -------------------------------------
+  
+  // Pin Interrupt setup
+  GIMSK		|= (1<<PCIE);
+ 15e:	8b b7       	in	r24, 0x3b	; 59
+ 160:	80 62       	ori	r24, 0x20	; 32
+ 162:	8b bf       	out	0x3b, r24	; 59
+  PCMSK		|= (1<<PCINT0)|(0<<PCINT1)|(0<<PCINT2)|(0<<PCINT3)|(0<<PCINT4)|(0<<PCINT5); // PB0
+ 164:	a8 9a       	sbi	0x15, 0	; 21
+  //PCMSK		|= (0<<PCINT0)|(0<<PCINT1)|(0<<PCINT2)|(0<<PCINT3)|(0<<PCINT4)|(1<<PCINT5); // PB5
+  DDRB	    |= (0<<DDB0);
+ 166:	87 b3       	in	r24, 0x17	; 23
+ 168:	87 bb       	out	0x17, r24	; 23
+  PORTB		 = 0x01;
+ 16a:	81 e0       	ldi	r24, 0x01	; 1
+ 16c:	88 bb       	out	0x18, r24	; 24
+  // -------------------------------------
+  
+  // Ausgabe Port
+  DDRB	   |= (1<<DDB2) ;
+ 16e:	ba 9a       	sbi	0x17, 2	; 23
+  
+  sei();                                   // a formality, interrupts enabled in IDE
+ 170:	78 94       	sei
+  
+  burst = 150;                    // convert ASCII to integer
+ 172:	26 e9       	ldi	r18, 0x96	; 150
+ 174:	30 e0       	ldi	r19, 0x00	; 0
+ 176:	30 93 6a 00 	sts	0x006A, r19	; 0x80006a <burst+0x1>
+ 17a:	20 93 69 00 	sts	0x0069, r18	; 0x800069 <burst>
+  burst_count = burst * 38;              // calculate number of modulation cycles in burst
+ 17e:	24 e4       	ldi	r18, 0x44	; 68
+ 180:	36 e1       	ldi	r19, 0x16	; 22
+ 182:	30 93 68 00 	sts	0x0068, r19	; 0x800068 <burst_count+0x1>
+ 186:	20 93 67 00 	sts	0x0067, r18	; 0x800067 <burst_count>
+  burstrep_count = 400 * 38;        // calculate number of modulation cycles in burst period
+ 18a:	20 e6       	ldi	r18, 0x60	; 96
+ 18c:	3b e3       	ldi	r19, 0x3B	; 59
+ 18e:	30 93 66 00 	sts	0x0066, r19	; 0x800066 <burstrep_count+0x1>
+ 192:	20 93 65 00 	sts	0x0065, r18	; 0x800065 <burstrep_count>
+  state = ACTIVE;                      // state may now send and receive
+ 196:	80 93 64 00 	sts	0x0064, r24	; 0x800064 <state>
+ 19a:	08 95       	ret
+
+0000019c <main>:
+}                                          // end setup
+
+
+int main(void)
+{
+  setup();
+ 19c:	d2 df       	rcall	.-92     	; 0x142 <setup>
+  //  cycles for each. Set machine state to ACTIVE.
+  //*********************************************************************************************************
+  //*********************************************************************************************************
+  //   Main routine where the action happens
+  //*********************************************************************************************************
+  while(state == ACTIVE){
+ 19e:	80 91 64 00 	lds	r24, 0x0064	; 0x800064 <state>
+ 1a2:	81 30       	cpi	r24, 0x01	; 1
+ 1a4:	f1 f3       	breq	.-4      	; 0x1a2 <main+0x6>
+        
+  }                                         // end while
+}
+ 1a6:	80 e0       	ldi	r24, 0x00	; 0
+ 1a8:	90 e0       	ldi	r25, 0x00	; 0
+ 1aa:	08 95       	ret
+
+000001ac <_exit>:
+ 1ac:	f8 94       	cli
+
+000001ae <__stop_program>:
+ 1ae:	ff cf       	rjmp	.-2      	; 0x1ae <__stop_program>

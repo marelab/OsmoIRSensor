@@ -1,0 +1,12 @@
+Reference, Value, Footprint, Datasheet, man#
+IC1,ATTINY45-S,SMD_Packages:SOIC-8-N,,Value
+R1,10K,Resistors_SMD:R_0805,,Value
+R4,1K,Resistors_SMD:R_0805,,Value
+R3,3K,Resistors_SMD:R_0805,,Value
+R2,200R,Resistors_SMD:R_0805,,Value
+Y1,20MHz,marelab:RESONATOR,,Value
+D1,LED PWR,LEDs:LED_0805,,Value
+D2,LED IR,LEDs:LED_PLCC-2,,Value
+IC2,TSOP75436WTR,marelab:SMD-IR,,Value
+P1,CONN_02X03_PCB_DIRECT,marelab:CON3x2PCB,,Value
+C1,22nF,Resistors_SMD:R_0805,,Value
