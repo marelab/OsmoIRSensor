@@ -383,4 +383,8 @@ Wire Wire Line
 	2200 3500 2025 3500
 Wire Wire Line
 	2025 3500 2025 3650
+Text Notes 1900 1175 0    60   ~ 0
+The IR-DEV Version connects all Pins of J2 to the outside. That makes it possible to reprogramm or analyze the ATTINY or signals. The consumer version just needs 3 pins connected to the outside\n\nPIN1 +5V\nPIN3 GND\nPIN5 SensorOut
+Text Notes 7125 1525 0    60   ~ 0
+1. VCC GRAU\n2. MOSI GELB\n3. GND GRUEN\n4. MISO WEISS\n5. SCK ROSA\n6. RESET BRAU
 $EndSCHEMATC

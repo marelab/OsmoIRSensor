@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source Z:/GITHUB/OsmoIRSensor/hardware/OsmoIRSensor.sch)
-    (date "14.03.2017 22:55:51")
+    (date "17.03.2017 09:59:44")
     (tool "Eeschema 4.0.5")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
