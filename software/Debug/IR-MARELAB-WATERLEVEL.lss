@@ -3,31 +3,31 @@ IR-MARELAB-WATERLEVEL.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000001b0  00000000  00000000  00000074  2**1
+  0 .text         0000022c  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000000  00800060  00800060  00000224  2**0
+  1 .data         00000000  00800060  00800060  000002a0  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          0000000b  00800060  00800060  00000224  2**0
+  2 .bss          00000011  00800060  00800060  000002a0  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000224  2**0
+  3 .comment      00000030  00000000  00000000  000002a0  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000254  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000002d0  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000038  00000000  00000000  00000290  2**0
+  5 .debug_aranges 00000038  00000000  00000000  0000030c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000605  00000000  00000000  000002c8  2**0
+  6 .debug_info   0000065a  00000000  00000000  00000344  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000004c3  00000000  00000000  000008cd  2**0
+  7 .debug_abbrev 000004c5  00000000  00000000  0000099e  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   0000029d  00000000  00000000  00000d90  2**0
+  8 .debug_line   000002bb  00000000  00000000  00000e63  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  0000009c  00000000  00000000  00001030  2**2
+  9 .debug_frame  000000a4  00000000  00000000  00001120  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000331  00000000  00000000  000010cc  2**0
+ 10 .debug_str    0000035b  00000000  00000000  000011c4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000000e0  00000000  00000000  000013fd  2**0
+ 11 .debug_loc    000000fa  00000000  00000000  0000151f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000028  00000000  00000000  000014dd  2**0
+ 12 .debug_ranges 00000028  00000000  00000000  00001619  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -35,7 +35,7 @@ Disassembly of section .text:
 00000000 <__vectors>:
    0:	0e c0       	rjmp	.+28     	; 0x1e <__ctors_end>
    2:	28 c0       	rjmp	.+80     	; 0x54 <__bad_interrupt>
-   4:	75 c0       	rjmp	.+234    	; 0xf0 <__vector_2>
+   4:	93 c0       	rjmp	.+294    	; 0x12c <__vector_2>
    6:	26 c0       	rjmp	.+76     	; 0x54 <__bad_interrupt>
    8:	26 c0       	rjmp	.+76     	; 0x56 <__vector_4>
    a:	24 c0       	rjmp	.+72     	; 0x54 <__bad_interrupt>
@@ -61,8 +61,8 @@ Disassembly of section .text:
   2a:	10 e0       	ldi	r17, 0x00	; 0
   2c:	a0 e6       	ldi	r26, 0x60	; 96
   2e:	b0 e0       	ldi	r27, 0x00	; 0
-  30:	e0 eb       	ldi	r30, 0xB0	; 176
-  32:	f1 e0       	ldi	r31, 0x01	; 1
+  30:	ec e2       	ldi	r30, 0x2C	; 44
+  32:	f2 e0       	ldi	r31, 0x02	; 2
   34:	02 c0       	rjmp	.+4      	; 0x3a <__do_copy_data+0x10>
   36:	05 90       	lpm	r0, Z+
   38:	0d 92       	st	X+, r0
@@ -80,11 +80,11 @@ Disassembly of section .text:
   48:	1d 92       	st	X+, r1
 
 0000004a <.do_clear_bss_start>:
-  4a:	ab 36       	cpi	r26, 0x6B	; 107
+  4a:	a1 37       	cpi	r26, 0x71	; 113
   4c:	b2 07       	cpc	r27, r18
   4e:	e1 f7       	brne	.-8      	; 0x48 <.do_clear_bss_loop>
-  50:	a5 d0       	rcall	.+330    	; 0x19c <main>
-  52:	ac c0       	rjmp	.+344    	; 0x1ac <_exit>
+  50:	e3 d0       	rcall	.+454    	; 0x218 <main>
+  52:	ea c0       	rjmp	.+468    	; 0x228 <_exit>
 
 00000054 <__bad_interrupt>:
   54:	d5 cf       	rjmp	.-86     	; 0x0 <__vectors>
@@ -102,229 +102,272 @@ ISR(TIMER1_OVF_vect){
   5c:	0f 92       	push	r0
   5e:	11 24       	eor	r1, r1
   60:	2f 93       	push	r18
-  62:	8f 93       	push	r24
-  64:	9f 93       	push	r25
-  66:	af 93       	push	r26
-  68:	bf 93       	push	r27
-  carrier_count++;                         // increment carrier counter
-  6a:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__data_end>
-  6e:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__data_end+0x1>
-  72:	a0 91 62 00 	lds	r26, 0x0062	; 0x800062 <__data_end+0x2>
-  76:	b0 91 63 00 	lds	r27, 0x0063	; 0x800063 <__data_end+0x3>
-  7a:	01 96       	adiw	r24, 0x01	; 1
-  7c:	a1 1d       	adc	r26, r1
-  7e:	b1 1d       	adc	r27, r1
-  80:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__data_end>
-  84:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__data_end+0x1>
-  88:	a0 93 62 00 	sts	0x0062, r26	; 0x800062 <__data_end+0x2>
-  8c:	b0 93 63 00 	sts	0x0063, r27	; 0x800063 <__data_end+0x3>
-  if (carrier_count == 4000){       //5700 if burst is completed
-  90:	80 3a       	cpi	r24, 0xA0	; 160
-  92:	9f 40       	sbci	r25, 0x0F	; 15
-  94:	a1 05       	cpc	r26, r1
-  96:	b1 05       	cpc	r27, r1
-  98:	31 f4       	brne	.+12     	; 0xa6 <__vector_4+0x50>
-    //TCCR1 = (0<<COM1A1)|(0<<COM1A0);        // disconnect OC2B pin driving IR emitter
+  62:	3f 93       	push	r19
+  64:	8f 93       	push	r24
+  66:	9f 93       	push	r25
+  68:	af 93       	push	r26
+  6a:	bf 93       	push	r27
+  carrier_count++;							// increment carrier counter
+  6c:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__data_end>
+  70:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__data_end+0x1>
+  74:	a0 91 62 00 	lds	r26, 0x0062	; 0x800062 <__data_end+0x2>
+  78:	b0 91 63 00 	lds	r27, 0x0063	; 0x800063 <__data_end+0x3>
+  7c:	01 96       	adiw	r24, 0x01	; 1
+  7e:	a1 1d       	adc	r26, r1
+  80:	b1 1d       	adc	r27, r1
+  82:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__data_end>
+  86:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__data_end+0x1>
+  8a:	a0 93 62 00 	sts	0x0062, r26	; 0x800062 <__data_end+0x2>
+  8e:	b0 93 63 00 	sts	0x0063, r27	; 0x800063 <__data_end+0x3>
+  if (carrier_count == 4000){				// 5700 if burst is completed
+  92:	80 3a       	cpi	r24, 0xA0	; 160
+  94:	9f 40       	sbci	r25, 0x0F	; 15
+  96:	a1 05       	cpc	r26, r1
+  98:	b1 05       	cpc	r27, r1
+  9a:	b1 f4       	brne	.+44     	; 0xc8 <__vector_4+0x72>
+    //TCCR1 = (0<<COM1A1)|(0<<COM1A0);      // disconnect OC2B pin driving IR emitter
 	TCCR1 &= ~(1<<COM1A1);
-  9a:	80 b7       	in	r24, 0x30	; 48
-  9c:	8f 7d       	andi	r24, 0xDF	; 223
-  9e:	80 bf       	out	0x30, r24	; 48
+  9c:	80 b7       	in	r24, 0x30	; 48
+  9e:	8f 7d       	andi	r24, 0xDF	; 223
+  a0:	80 bf       	out	0x30, r24	; 48
 	TCCR1 &= ~(1<<COM1A0);
-  a0:	80 b7       	in	r24, 0x30	; 48
-  a2:	8f 7e       	andi	r24, 0xEF	; 239
-  a4:	80 bf       	out	0x30, r24	; 48
+  a2:	80 b7       	in	r24, 0x30	; 48
+  a4:	8f 7e       	andi	r24, 0xEF	; 239
+  a6:	80 bf       	out	0x30, r24	; 48
    //DDRB  = (0<<DDB1);
-  }                                        // end if
-  if (carrier_count == 8000){    //16000 if burst cycle is completed
-  a6:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__data_end>
-  aa:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__data_end+0x1>
-  ae:	a0 91 62 00 	lds	r26, 0x0062	; 0x800062 <__data_end+0x2>
-  b2:	b0 91 63 00 	lds	r27, 0x0063	; 0x800063 <__data_end+0x3>
-  b6:	80 34       	cpi	r24, 0x40	; 64
-  b8:	9f 41       	sbci	r25, 0x1F	; 31
-  ba:	a1 05       	cpc	r26, r1
-  bc:	b1 05       	cpc	r27, r1
-  be:	71 f4       	brne	.+28     	; 0xdc <__vector_4+0x86>
+   if ((captureLow *2) < captureHigh){
+  a8:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <captureLow>
+  ac:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <captureLow+0x1>
+  b0:	20 91 66 00 	lds	r18, 0x0066	; 0x800066 <captureHigh>
+  b4:	30 91 67 00 	lds	r19, 0x0067	; 0x800067 <captureHigh+0x1>
+  b8:	88 0f       	add	r24, r24
+  ba:	99 1f       	adc	r25, r25
+  bc:	82 17       	cp	r24, r18
+  be:	93 07       	cpc	r25, r19
+  c0:	10 f4       	brcc	.+4      	; 0xc6 <__vector_4+0x70>
+	   PORTB |= (1 << PB2);    /* LED ON setzt Bit 2 an PortB auf 1 */
+  c2:	c2 9a       	sbi	0x18, 2	; 24
+  c4:	01 c0       	rjmp	.+2      	; 0xc8 <__vector_4+0x72>
+	   }else{
+	   PORTB &= ~(1 << PB2);   /* LED OFF */
+  c6:	c2 98       	cbi	0x18, 2	; 24
+   }
+  }											// end if
+  if (carrier_count == 8000){				// 16000 if burst cycle is completed
+  c8:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__data_end>
+  cc:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__data_end+0x1>
+  d0:	a0 91 62 00 	lds	r26, 0x0062	; 0x800062 <__data_end+0x2>
+  d4:	b0 91 63 00 	lds	r27, 0x0063	; 0x800063 <__data_end+0x3>
+  d8:	80 34       	cpi	r24, 0x40	; 64
+  da:	9f 41       	sbci	r25, 0x1F	; 31
+  dc:	a1 05       	cpc	r26, r1
+  de:	b1 05       	cpc	r27, r1
+  e0:	d1 f4       	brne	.+52     	; 0x116 <__vector_4+0xc0>
     TCCR1 |= (1<<COM1A1);
-  c0:	80 b7       	in	r24, 0x30	; 48
-  c2:	80 62       	ori	r24, 0x20	; 32
-  c4:	80 bf       	out	0x30, r24	; 48
-	TCCR1 |= (1<<COM1A0);      // re-connect OC2B pin driving IR emitter
-  c6:	80 b7       	in	r24, 0x30	; 48
-  c8:	80 61       	ori	r24, 0x10	; 16
-  ca:	80 bf       	out	0x30, r24	; 48
-	//DDRB  = (1<<DDB1);
-    carrier_count= 0;                      // reset counter for start of new cycle
-  cc:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <__data_end>
-  d0:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <__data_end+0x1>
-  d4:	10 92 62 00 	sts	0x0062, r1	; 0x800062 <__data_end+0x2>
-  d8:	10 92 63 00 	sts	0x0063, r1	; 0x800063 <__data_end+0x3>
-  }                                        // end if
-  
-}                                          // end ISR
-  dc:	bf 91       	pop	r27
-  de:	af 91       	pop	r26
-  e0:	9f 91       	pop	r25
-  e2:	8f 91       	pop	r24
-  e4:	2f 91       	pop	r18
-  e6:	0f 90       	pop	r0
-  e8:	0f be       	out	0x3f, r0	; 63
-  ea:	0f 90       	pop	r0
-  ec:	1f 90       	pop	r1
-  ee:	18 95       	reti
+  e2:	80 b7       	in	r24, 0x30	; 48
+  e4:	80 62       	ori	r24, 0x20	; 32
+  e6:	80 bf       	out	0x30, r24	; 48
+	TCCR1 |= (1<<COM1A0);					// re-connect OC2B pin driving IR emitter
+  e8:	80 b7       	in	r24, 0x30	; 48
+  ea:	80 61       	ori	r24, 0x10	; 16
+  ec:	80 bf       	out	0x30, r24	; 48
+	// Prepare Signal for water or dry
+	carrier_count	= 0;					// reset counter for start of new cycle
+  ee:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <__data_end>
+  f2:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <__data_end+0x1>
+  f6:	10 92 62 00 	sts	0x0062, r1	; 0x800062 <__data_end+0x2>
+  fa:	10 92 63 00 	sts	0x0063, r1	; 0x800063 <__data_end+0x3>
+	captureHigh	    = 0;                    // new cycle reset all
+  fe:	10 92 67 00 	sts	0x0067, r1	; 0x800067 <captureHigh+0x1>
+ 102:	10 92 66 00 	sts	0x0066, r1	; 0x800066 <captureHigh>
+	captureLow		= 0;
+ 106:	10 92 69 00 	sts	0x0069, r1	; 0x800069 <captureLow+0x1>
+ 10a:	10 92 68 00 	sts	0x0068, r1	; 0x800068 <captureLow>
+	countOld        = 0;
+ 10e:	10 92 65 00 	sts	0x0065, r1	; 0x800065 <countOld+0x1>
+ 112:	10 92 64 00 	sts	0x0064, r1	; 0x800064 <countOld>
+  }											
+}                                          
+ 116:	bf 91       	pop	r27
+ 118:	af 91       	pop	r26
+ 11a:	9f 91       	pop	r25
+ 11c:	8f 91       	pop	r24
+ 11e:	3f 91       	pop	r19
+ 120:	2f 91       	pop	r18
+ 122:	0f 90       	pop	r0
+ 124:	0f be       	out	0x3f, r0	; 63
+ 126:	0f 90       	pop	r0
+ 128:	1f 90       	pop	r1
+ 12a:	18 95       	reti
 
-000000f0 <__vector_2>:
+0000012c <__vector_2>:
+//  This detects if the sensor is in/out of water
+//  Time is measured between Interrupts of any edge change
 //*********************************************************************************************************
-//  Interrupt service routine
-//  PIN INTERRUPT TO MEASURE TIME
-//*********************************************************************************************************
-
+// Die länge zwischen zwei Interrupts messen und bestimmen ob es Low oder High war
+ 
 ISR(PCINT0_vect){
-  f0:	1f 92       	push	r1
-  f2:	0f 92       	push	r0
-  f4:	0f b6       	in	r0, 0x3f	; 63
-  f6:	0f 92       	push	r0
-  f8:	11 24       	eor	r1, r1
-  fa:	2f 93       	push	r18
-  fc:	8f 93       	push	r24
-  fe:	9f 93       	push	r25
- 100:	af 93       	push	r26
- 102:	bf 93       	push	r27
-if (carrier_count > 80){
- 104:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__data_end>
- 108:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__data_end+0x1>
- 10c:	a0 91 62 00 	lds	r26, 0x0062	; 0x800062 <__data_end+0x2>
- 110:	b0 91 63 00 	lds	r27, 0x0063	; 0x800063 <__data_end+0x3>
- 114:	81 35       	cpi	r24, 0x51	; 81
- 116:	91 05       	cpc	r25, r1
- 118:	a1 05       	cpc	r26, r1
- 11a:	b1 05       	cpc	r27, r1
- 11c:	40 f0       	brcs	.+16     	; 0x12e <__vector_2+0x3e>
-	if (carrier_count < 400){ //1800
- 11e:	80 39       	cpi	r24, 0x90	; 144
- 120:	91 40       	sbci	r25, 0x01	; 1
- 122:	a1 05       	cpc	r26, r1
- 124:	b1 05       	cpc	r27, r1
- 126:	10 f4       	brcc	.+4      	; 0x12c <__vector_2+0x3c>
-		PORTB &= ~(1 << PB2);   /* LED OFF */	
- 128:	c2 98       	cbi	0x18, 2	; 24
- 12a:	01 c0       	rjmp	.+2      	; 0x12e <__vector_2+0x3e>
-		// lastState = TRUE;
-	}
-	else
+ 12c:	1f 92       	push	r1
+ 12e:	0f 92       	push	r0
+ 130:	0f b6       	in	r0, 0x3f	; 63
+ 132:	0f 92       	push	r0
+ 134:	11 24       	eor	r1, r1
+ 136:	2f 93       	push	r18
+ 138:	3f 93       	push	r19
+ 13a:	4f 93       	push	r20
+ 13c:	5f 93       	push	r21
+ 13e:	8f 93       	push	r24
+ 140:	9f 93       	push	r25
+	if((PINB & (1 << PB0))) {
+ 142:	b0 9b       	sbis	0x16, 0	; 22
+ 144:	15 c0       	rjmp	.+42     	; 0x170 <__stack+0x11>
+		//Flanke von LOW nach HIGH
+		captureLow = captureLow + (carrier_count - countOld); 
+ 146:	40 91 64 00 	lds	r20, 0x0064	; 0x800064 <countOld>
+ 14a:	50 91 65 00 	lds	r21, 0x0065	; 0x800065 <countOld+0x1>
+ 14e:	20 91 68 00 	lds	r18, 0x0068	; 0x800068 <captureLow>
+ 152:	30 91 69 00 	lds	r19, 0x0069	; 0x800069 <captureLow+0x1>
+ 156:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__data_end>
+ 15a:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__data_end+0x1>
+ 15e:	84 1b       	sub	r24, r20
+ 160:	95 0b       	sbc	r25, r21
+ 162:	82 0f       	add	r24, r18
+ 164:	93 1f       	adc	r25, r19
+ 166:	90 93 69 00 	sts	0x0069, r25	; 0x800069 <captureLow+0x1>
+ 16a:	80 93 68 00 	sts	0x0068, r24	; 0x800068 <captureLow>
+ 16e:	14 c0       	rjmp	.+40     	; 0x198 <__stack+0x39>
+	}else
 	{
-		 PORTB |= (1 << PB2);    /* LED ON setzt Bit 2 an PortB auf 1 */
- 12c:	c2 9a       	sbi	0x18, 2	; 24
+		// Flanke von High nach Low
+		captureHigh = captureHigh + (carrier_count - countOld); 
+ 170:	40 91 64 00 	lds	r20, 0x0064	; 0x800064 <countOld>
+ 174:	50 91 65 00 	lds	r21, 0x0065	; 0x800065 <countOld+0x1>
+ 178:	20 91 66 00 	lds	r18, 0x0066	; 0x800066 <captureHigh>
+ 17c:	30 91 67 00 	lds	r19, 0x0067	; 0x800067 <captureHigh+0x1>
+ 180:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__data_end>
+ 184:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__data_end+0x1>
+ 188:	84 1b       	sub	r24, r20
+ 18a:	95 0b       	sbc	r25, r21
+ 18c:	82 0f       	add	r24, r18
+ 18e:	93 1f       	adc	r25, r19
+ 190:	90 93 67 00 	sts	0x0067, r25	; 0x800067 <captureHigh+0x1>
+ 194:	80 93 66 00 	sts	0x0066, r24	; 0x800066 <captureHigh>
+		
 	}
-}
+	countOld = carrier_count;
+ 198:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__data_end>
+ 19c:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__data_end+0x1>
+ 1a0:	90 93 65 00 	sts	0x0065, r25	; 0x800065 <countOld+0x1>
+ 1a4:	80 93 64 00 	sts	0x0064, r24	; 0x800064 <countOld>
 }                                          // end ISR
- 12e:	bf 91       	pop	r27
- 130:	af 91       	pop	r26
- 132:	9f 91       	pop	r25
- 134:	8f 91       	pop	r24
- 136:	2f 91       	pop	r18
- 138:	0f 90       	pop	r0
- 13a:	0f be       	out	0x3f, r0	; 63
- 13c:	0f 90       	pop	r0
- 13e:	1f 90       	pop	r1
- 140:	18 95       	reti
+ 1a8:	9f 91       	pop	r25
+ 1aa:	8f 91       	pop	r24
+ 1ac:	5f 91       	pop	r21
+ 1ae:	4f 91       	pop	r20
+ 1b0:	3f 91       	pop	r19
+ 1b2:	2f 91       	pop	r18
+ 1b4:	0f 90       	pop	r0
+ 1b6:	0f be       	out	0x3f, r0	; 63
+ 1b8:	0f 90       	pop	r0
+ 1ba:	1f 90       	pop	r1
+ 1bc:	18 95       	reti
 
-00000142 <setup>:
+000001be <setup>:
+
 
 void setup() {  
   // Timer 1 Fast  PWM
-  TCCR1	=  (1<<PWM1A)  | (0<<CS13)| (0<<CS12)| (1<<CS11) | (0<<CS10);
- 142:	82 e4       	ldi	r24, 0x42	; 66
- 144:	80 bf       	out	0x30, r24	; 48
-  GTCCR = (0<<PWM1B);
- 146:	1c bc       	out	0x2c, r1	; 44
-  TCCR1 |= (1<<COM1A1)|(1<<COM1A0);
- 148:	80 b7       	in	r24, 0x30	; 48
- 14a:	80 63       	ori	r24, 0x30	; 48
- 14c:	80 bf       	out	0x30, r24	; 48
-  OCR1A		= 80; // Duty
- 14e:	80 e5       	ldi	r24, 0x50	; 80
- 150:	8e bd       	out	0x2e, r24	; 46
-  OCR1C		= 255;
- 152:	8f ef       	ldi	r24, 0xFF	; 255
- 154:	8d bd       	out	0x2d, r24	; 45
-  TCNT1 =  0;
- 156:	1f bc       	out	0x2f, r1	; 47
-  TIMSK = (0 << OCIE1B) | (0 << OCIE1A) | (1 << TOIE1);
- 158:	84 e0       	ldi	r24, 0x04	; 4
- 15a:	89 bf       	out	0x39, r24	; 57
-  DDRB	   |= (1<<DDB1) ;
- 15c:	b9 9a       	sbi	0x17, 1	; 23
+  TCCR1		=  (1<<PWM1A)  | (0<<CS13)| (0<<CS12)| (1<<CS11) | (0<<CS10);
+ 1be:	82 e4       	ldi	r24, 0x42	; 66
+ 1c0:	80 bf       	out	0x30, r24	; 48
+  GTCCR		=  (0<<PWM1B);
+ 1c2:	1c bc       	out	0x2c, r1	; 44
+  TCCR1		|= (1<<COM1A1)|(1<<COM1A0);
+ 1c4:	80 b7       	in	r24, 0x30	; 48
+ 1c6:	80 63       	ori	r24, 0x30	; 48
+ 1c8:	80 bf       	out	0x30, r24	; 48
+  OCR1A		=  80; // Duty
+ 1ca:	80 e5       	ldi	r24, 0x50	; 80
+ 1cc:	8e bd       	out	0x2e, r24	; 46
+  OCR1C		=  255;
+ 1ce:	8f ef       	ldi	r24, 0xFF	; 255
+ 1d0:	8d bd       	out	0x2d, r24	; 45
+  TCNT1		=  0;
+ 1d2:	1f bc       	out	0x2f, r1	; 47
+  TIMSK		= (0 << OCIE1B) | (0 << OCIE1A) | (1 << TOIE1);
+ 1d4:	84 e0       	ldi	r24, 0x04	; 4
+ 1d6:	89 bf       	out	0x39, r24	; 57
+  DDRB		|= (1<<DDB1);
+ 1d8:	b9 9a       	sbi	0x17, 1	; 23
   // -------------------------------------
   
   // Pin Interrupt setup
   GIMSK		|= (1<<PCIE);
- 15e:	8b b7       	in	r24, 0x3b	; 59
- 160:	80 62       	ori	r24, 0x20	; 32
- 162:	8b bf       	out	0x3b, r24	; 59
-  PCMSK		|= (1<<PCINT0)|(0<<PCINT1)|(0<<PCINT2)|(0<<PCINT3)|(0<<PCINT4)|(0<<PCINT5); // PB0
- 164:	a8 9a       	sbi	0x15, 0	; 21
-  //PCMSK		|= (0<<PCINT0)|(0<<PCINT1)|(0<<PCINT2)|(0<<PCINT3)|(0<<PCINT4)|(1<<PCINT5); // PB5
+ 1da:	8b b7       	in	r24, 0x3b	; 59
+ 1dc:	80 62       	ori	r24, 0x20	; 32
+ 1de:	8b bf       	out	0x3b, r24	; 59
+  //MCUCR     |= (1<<ISC00);			//  Any logical change on INT0 generates an interrupt request. 
+ // GIMSK		|= (1<<INT0);			// External Interrupt Request 0 Enable
+  PCMSK		|= (1<<PCINT0)|(0<<PCINT1)|(0<<PCINT2)|(0<<PCINT3)|(0<<PCINT4)|(0<<PCINT5); // PB0 Pin as Input for Interrupt its the output of the IR Transreceiver
+ 1e0:	a8 9a       	sbi	0x15, 0	; 21
   DDRB	    |= (0<<DDB0);
- 166:	87 b3       	in	r24, 0x17	; 23
- 168:	87 bb       	out	0x17, r24	; 23
+ 1e2:	87 b3       	in	r24, 0x17	; 23
+ 1e4:	87 bb       	out	0x17, r24	; 23
   PORTB		 = 0x01;
- 16a:	81 e0       	ldi	r24, 0x01	; 1
- 16c:	88 bb       	out	0x18, r24	; 24
+ 1e6:	81 e0       	ldi	r24, 0x01	; 1
+ 1e8:	88 bb       	out	0x18, r24	; 24
   // -------------------------------------
   
   // Ausgabe Port
-  DDRB	   |= (1<<DDB2) ;
- 16e:	ba 9a       	sbi	0x17, 2	; 23
-  
-  sei();                                   // a formality, interrupts enabled in IDE
- 170:	78 94       	sei
-  
-  burst = 150;                    // convert ASCII to integer
- 172:	26 e9       	ldi	r18, 0x96	; 150
- 174:	30 e0       	ldi	r19, 0x00	; 0
- 176:	30 93 6a 00 	sts	0x006A, r19	; 0x80006a <burst+0x1>
- 17a:	20 93 69 00 	sts	0x0069, r18	; 0x800069 <burst>
-  burst_count = burst * 38;              // calculate number of modulation cycles in burst
- 17e:	24 e4       	ldi	r18, 0x44	; 68
- 180:	36 e1       	ldi	r19, 0x16	; 22
- 182:	30 93 68 00 	sts	0x0068, r19	; 0x800068 <burst_count+0x1>
- 186:	20 93 67 00 	sts	0x0067, r18	; 0x800067 <burst_count>
-  burstrep_count = 400 * 38;        // calculate number of modulation cycles in burst period
- 18a:	20 e6       	ldi	r18, 0x60	; 96
- 18c:	3b e3       	ldi	r19, 0x3B	; 59
- 18e:	30 93 66 00 	sts	0x0066, r19	; 0x800066 <burstrep_count+0x1>
- 192:	20 93 65 00 	sts	0x0065, r18	; 0x800065 <burstrep_count>
-  state = ACTIVE;                      // state may now send and receive
- 196:	80 93 64 00 	sts	0x0064, r24	; 0x800064 <state>
- 19a:	08 95       	ret
+  DDRB				|= (1<<DDB2) ;
+ 1ea:	ba 9a       	sbi	0x17, 2	; 23
+  sei();							// a formality, interrupts enabled in IDE
+ 1ec:	78 94       	sei
+  burst				= 150;			// convert ASCII to integer
+ 1ee:	26 e9       	ldi	r18, 0x96	; 150
+ 1f0:	30 e0       	ldi	r19, 0x00	; 0
+ 1f2:	30 93 70 00 	sts	0x0070, r19	; 0x800070 <burst+0x1>
+ 1f6:	20 93 6f 00 	sts	0x006F, r18	; 0x80006f <burst>
+  burst_count		= burst * 38;	// calculate number of modulation cycles in burst
+ 1fa:	24 e4       	ldi	r18, 0x44	; 68
+ 1fc:	36 e1       	ldi	r19, 0x16	; 22
+ 1fe:	30 93 6e 00 	sts	0x006E, r19	; 0x80006e <burst_count+0x1>
+ 202:	20 93 6d 00 	sts	0x006D, r18	; 0x80006d <burst_count>
+  burstrep_count	= 400 * 38;		// calculate number of modulation cycles in burst period
+ 206:	20 e6       	ldi	r18, 0x60	; 96
+ 208:	3b e3       	ldi	r19, 0x3B	; 59
+ 20a:	30 93 6c 00 	sts	0x006C, r19	; 0x80006c <burstrep_count+0x1>
+ 20e:	20 93 6b 00 	sts	0x006B, r18	; 0x80006b <burstrep_count>
+  state				= ACTIVE;		// state may now send and receive
+ 212:	80 93 6a 00 	sts	0x006A, r24	; 0x80006a <state>
+ 216:	08 95       	ret
 
-0000019c <main>:
-}                                          // end setup
+00000218 <main>:
+}                                         
 
 
 int main(void)
 {
   setup();
- 19c:	d2 df       	rcall	.-92     	; 0x142 <setup>
+ 218:	d2 df       	rcall	.-92     	; 0x1be <setup>
   //  cycles for each. Set machine state to ACTIVE.
   //*********************************************************************************************************
   //*********************************************************************************************************
   //   Main routine where the action happens
   //*********************************************************************************************************
   while(state == ACTIVE){
- 19e:	80 91 64 00 	lds	r24, 0x0064	; 0x800064 <state>
- 1a2:	81 30       	cpi	r24, 0x01	; 1
- 1a4:	f1 f3       	breq	.-4      	; 0x1a2 <main+0x6>
+ 21a:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <state>
+ 21e:	81 30       	cpi	r24, 0x01	; 1
+ 220:	f1 f3       	breq	.-4      	; 0x21e <main+0x6>
         
   }                                         // end while
 }
- 1a6:	80 e0       	ldi	r24, 0x00	; 0
- 1a8:	90 e0       	ldi	r25, 0x00	; 0
- 1aa:	08 95       	ret
+ 222:	80 e0       	ldi	r24, 0x00	; 0
+ 224:	90 e0       	ldi	r25, 0x00	; 0
+ 226:	08 95       	ret
 
-000001ac <_exit>:
- 1ac:	f8 94       	cli
+00000228 <_exit>:
+ 228:	f8 94       	cli
 
-000001ae <__stop_program>:
- 1ae:	ff cf       	rjmp	.-2      	; 0x1ae <__stop_program>
+0000022a <__stop_program>:
+ 22a:	ff cf       	rjmp	.-2      	; 0x22a <__stop_program>
